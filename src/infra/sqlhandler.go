@@ -5,6 +5,7 @@ import (
 	"github.com/joho/godotenv"
 	"log"
 	"os"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type SqlHandler struct {
