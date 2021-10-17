@@ -6,10 +6,10 @@ import (
 )
 
 type TodoUsecase interface {
-	Search(string) (todo []*model.Todo,err error)
-	View() (todo []*model.Todo,err error)
+	Search(string) (todo []*model.Todo, err error)
+	View() (todo []*model.Todo, err error)
 	Add(todo *model.Todo) (err error)
-	Edit(todo *model.Todo)(err error)
+	Edit(todo *model.Todo) (err error)
 }
 
 type todoUsecase struct {
@@ -22,22 +22,21 @@ func NewTodoUsecase(todoRepo repository.TodoRepository) TodoUsecase {
 }
 
 func (usecase *todoUsecase) Search(word string) (todo []*model.Todo, err error) {
-	todo,err = usecase.todoRepo.Find(word)
+	todo, err = usecase.todoRepo.Find(word)
 	return
 }
 
 func (usecase *todoUsecase) View() (todo []*model.Todo, err error) {
-	todo,err = usecase.todoRepo.FindAll()
-	return 
+	todo, err = usecase.todoRepo.FindAll()
+	return
 }
 
 func (usecase todoUsecase) Add(todo *model.Todo) (err error) {
-	_,err = usecase.todoRepo.Create(todo)
-	return 
+	_, err = usecase.todoRepo.Create(todo)
+	return
 }
 
 func (usecase *todoUsecase) Edit(todo *model.Todo) (err error) {
 	_, err = usecase.todoRepo.Update(todo)
 	return
 }
-

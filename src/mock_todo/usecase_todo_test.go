@@ -16,10 +16,10 @@ func TestView(t *testing.T) {
 	var err error
 
 	mockSample := NewMockTodoRepository(ctrl)
-	mockSample.EXPECT().FindAll().Return(expected,err)
+	mockSample.EXPECT().FindAll().Return(expected, err)
 
-	todoUsecase :=usecase.NewTodoUsecase(mockSample)
-	result,err := todoUsecase.View()
+	todoUsecase := usecase.NewTodoUsecase(mockSample)
+	result, err := todoUsecase.View()
 
 	if err != nil {
 		t.Error("Actual FindAll() is not same as expected")
@@ -40,10 +40,10 @@ func TestSearch(t *testing.T) {
 	word := "test"
 
 	mockSample := NewMockTodoRepository(ctrl)
-	mockSample.EXPECT().Find(word).Return(expected,err)
+	mockSample.EXPECT().Find(word).Return(expected, err)
 
 	todoUsecase := usecase.NewTodoUsecase(mockSample)
-	result,err := todoUsecase.Search(word)
+	result, err := todoUsecase.Search(word)
 
 	if err != nil {
 		t.Error("Actual Find(word string) is not same as expected")
@@ -62,7 +62,7 @@ func TestAdd(t *testing.T) {
 	var err error
 
 	mockSample := NewMockTodoRepository(ctrl)
-	mockSample.EXPECT().Create(expected).Return(expected,err)
+	mockSample.EXPECT().Create(expected).Return(expected, err)
 
 	todoUsecase := usecase.NewTodoUsecase(mockSample)
 	err = todoUsecase.Add(expected)
