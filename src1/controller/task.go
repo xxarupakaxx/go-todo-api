@@ -3,7 +3,7 @@ package controller
 import (
 	"fmt"
 	"github.com/labstack/echo"
-	"github.com/xxarupakaxx/go-todo-api/src/model"
+	"github.com/xxarupakaxx/go-todo-api/src1/model1"
 	"log"
 	"net/http"
 	"strconv"
