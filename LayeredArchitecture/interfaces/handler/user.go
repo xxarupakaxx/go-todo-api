@@ -6,7 +6,7 @@ import (
 )
 
 type userHandler struct {
-	userUseCase usecase.UserUserCase
+	userUseCase usecase.UserUseCase
 }
 
 func (uh *userHandler) HandleUserGet(c echo.Context) error {
@@ -17,7 +17,7 @@ func (uh *userHandler) HandleUserSignup(c echo.Context) error {
 	panic("implement me")
 }
 
-func newUserHandler(uu usecase.UserUserCase) *userHandler {
+func newUserHandler(uu usecase.UserUseCase) *userHandler {
 	return &userHandler{userUseCase: uu}
 }
 
