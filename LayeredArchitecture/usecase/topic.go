@@ -1,5 +1,5 @@
 package usecase
-
+// validateとかpasswordのhash化とかをここでやる
 import (
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain"
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain/repository"
