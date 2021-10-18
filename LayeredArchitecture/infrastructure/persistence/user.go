@@ -8,12 +8,12 @@ import (
 
 type userPersistence struct {}
 
-func (up *userPersistence) Insert(DB *sql.DB, userID, name, email string) error {
-	stmt,err := DB.Prepare("INSERT INTO users(id,account_name,address) VALUES(?,?,?)")
+func (up *userPersistence) Insert(DB *sql.DB, name, email string) error {
+	stmt,err := DB.Prepare("INSERT INTO users(account_name,address) VALUES(,?,?)")
 	if err != nil {
 		return err
 	}
-	_,err = stmt.Exec(userID,name,email)
+	_,err = stmt.Exec(name,email)
 	return err
 }
 
