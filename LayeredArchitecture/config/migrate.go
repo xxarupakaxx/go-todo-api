@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain"
 	"log"
 )
 
