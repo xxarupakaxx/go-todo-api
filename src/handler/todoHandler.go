@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/xxarupakaxx/go-todo-api/src/domain/model"
 	"github.com/xxarupakaxx/go-todo-api/src/usecase"
 	"net/http"
@@ -42,7 +42,7 @@ func (handler *TodoHandler) Add() echo.HandlerFunc {
 		var todo model.Todo
 		c.Bind(&todo)
 		err := handler.todoUsecase.Add(&todo)
-		return c.JSON(http.StatusOK, err)
+		return c.JSON(http.StatusCreated, err)
 	}
 }
 

@@ -9,7 +9,7 @@ import (
 type userPersistence struct {}
 
 func (up *userPersistence) Insert(DB *sql.DB, name, email string) error {
-	stmt,err := DB.Prepare("INSERT INTO users(account_name,address) VALUES(,?,?)")
+	stmt,err := DB.Prepare("INSERT INTO users(account_name,address) VALUES(?,?)")
 	if err != nil {
 		return err
 	}

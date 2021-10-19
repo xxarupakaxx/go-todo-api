@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/xxarupakaxx/go-todo-api/src/handler"
 	"github.com/xxarupakaxx/go-todo-api/src/injector"
 )
