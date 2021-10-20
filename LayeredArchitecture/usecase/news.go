@@ -10,7 +10,11 @@ type newsUseCase struct {
 }
 
 func (n newsUseCase) GetNews(id int) (*domain.News, error) {
-	panic("implement me")
+	news,err := n.newsRepository.Get(id)
+	if err != nil {
+		return nil, err
+	}
+	return news,nil
 }
 
 func (n newsUseCase) GetAllNews() ([]domain.News, error) {
