@@ -40,8 +40,11 @@ func (handler *TodoHandler) Search() echo.HandlerFunc {
 func (handler *TodoHandler) Add() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var todo model.Todo
-		c.Bind(&todo)
-		err := handler.todoUsecase.Add(&todo)
+		err := c.Bind(&todo)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest,err)
+		}
+		err = handler.todoUsecase.Add(&todo)
 		return c.JSON(http.StatusCreated, err)
 	}
 }
@@ -49,8 +52,11 @@ func (handler *TodoHandler) Add() echo.HandlerFunc {
 func (handler *TodoHandler) Edit() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var todo model.Todo
-		c.Bind(&todo)
-		err := handler.todoUsecase.Edit(&todo)
+		err := c.Bind(&todo)
+		if err != nil {
+			return err
+		}
+		err = handler.todoUsecase.Edit(&todo)
 		return c.JSON(http.StatusOK, err)
 	}
 }
