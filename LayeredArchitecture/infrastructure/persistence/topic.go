@@ -18,8 +18,8 @@ func (t *TopicRepositoryImpl) Get(id int) (*domain.Topic, error) {
 	return topic,nil
 }
 
-func (t *TopicRepositoryImpl) GetAll() ([]domain.Topic, error) {
-	topics := []domain.Topic{}
+func (t *TopicRepositoryImpl) GetAll() ([]*domain.Topic, error) {
+	topics := []*domain.Topic{}
 	if err:= t.Conn.Preload("News").Find(&topics).Error;err!=nil{
 		return nil, err
 	}

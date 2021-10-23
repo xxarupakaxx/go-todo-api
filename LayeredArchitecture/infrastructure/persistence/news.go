@@ -19,8 +19,8 @@ func (r *NewsRepositoryImpl) Get(id int) (*domain.News, error) {
 	return news,nil
 }
 
-func (r *NewsRepositoryImpl) GetAll() ([]domain.News, error) {
-	news :=[]domain.News{}
+func (r *NewsRepositoryImpl) GetAll() ([]*domain.News, error) {
+	news :=[]*domain.News{}
 	if err := r.Conn.Preload("Topic").Find(&news).Error; err != nil {
 		return nil, err
 	}
@@ -51,9 +51,9 @@ func (r *NewsRepositoryImpl) GetBySlug(slug string) ([]*domain.News, error) {
 	return us,nil
 }
 
-func (r *NewsRepositoryImpl) GetAllByStatus(status string) ([]domain.News, error) {
+func (r *NewsRepositoryImpl) GetAllByStatus(status string) ([]*domain.News, error) {
 	if status == "deleted" {
-		news := []domain.News{}
+		news := []*domain.News{}
 		if err := r.Conn.Unscoped().Where("status = ?", status).Preload("Topic").Find(&news).Error; err != nil {
 			return nil, err
 		}
@@ -61,7 +61,7 @@ func (r *NewsRepositoryImpl) GetAllByStatus(status string) ([]domain.News, error
 		return news, nil
 	}
 
-	news := []domain.News{}
+	news := []*domain.News{}
 	if err := r.Conn.Where("status = ?", status).Preload("Topic").Find(&news).Error; err != nil {
 		return nil, err
 	}
