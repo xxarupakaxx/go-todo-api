@@ -17,6 +17,7 @@ func newTopicHandler(topicUseCase usecase.TopicUseCase) *TopicHandler {
 	return &TopicHandler{topicUseCase: topicUseCase}
 }
 
+// GetAllTopic GET /topic
 func (th *TopicHandler) GetAllTopic() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		topics,err :=th.topicUseCase.GetAllTopic()
@@ -27,6 +28,7 @@ func (th *TopicHandler) GetAllTopic() echo.HandlerFunc {
 	}
 }
 
+// GetTopic GET topic/:id
 func (th *TopicHandler) GetTopic() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		topicID,err :=strconv.Atoi(c.Param("id"))
@@ -41,6 +43,7 @@ func (th *TopicHandler) GetTopic() echo.HandlerFunc {
 	}
 }
 
+// CreateTopic POST /topic/
 func (th *TopicHandler) CreateTopic() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		type payload struct {
@@ -59,6 +62,7 @@ func (th *TopicHandler) CreateTopic() echo.HandlerFunc {
 	}
 }
 
+// UpdateTopic PUT /topic/id
 func (th *TopicHandler) UpdateTopic() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var topic domain.Topic
@@ -77,6 +81,7 @@ func (th *TopicHandler) UpdateTopic() echo.HandlerFunc {
 	}
 }
 
+// RemoveTopic DELETE /topic/:id
 func (th *TopicHandler) RemoveTopic() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		topicID,err := strconv.Atoi("id" )
