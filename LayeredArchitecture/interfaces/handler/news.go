@@ -2,7 +2,7 @@ package interfaces
 
 import (
 	"fmt"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain"
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/usecase"
 	"net/http"
