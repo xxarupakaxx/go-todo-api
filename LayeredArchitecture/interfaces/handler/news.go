@@ -1,7 +1,9 @@
 package interfaces
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
+	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain"
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/usecase"
 	"net/http"
 	"strconv"
@@ -15,15 +17,15 @@ func newNewsHandler(newsUseCase usecase.NewsUseCase) *NewsHandler {
 	return &NewsHandler{newsUseCase: newsUseCase}
 }
 
-// Get GET /news/:id
-func (nh *NewsHandler) Get() echo.HandlerFunc {
+// GetNews Get GET /news/:id
+func (nh *NewsHandler) GetNews() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		id := c.QueryParam("id")
+		id := c.Param("id")
 		intID ,err := strconv.Atoi(id)
 		if err != nil {
 			return c.String(http.StatusInternalServerError,err.Error())
 		}
-		models, err := nh.newsUseCase.Get(intID)
+		models, err := nh.newsUseCase.GetNews(intID)
 		if err != nil {
 			return c.String(http.StatusInternalServerError,err.Error())
 		}
@@ -31,24 +33,70 @@ func (nh *NewsHandler) Get() echo.HandlerFunc {
 	}
 }
 //GetAll GET /news
-func (nh *NewsHandler) GetAll() echo.HandlerFunc {
+func (nh *NewsHandler) GetAllNews() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		news,err:= nh.newsUseCase.GetAll()
+		status := c.QueryParam("status")
+		if status =="draft" || status == "deleted" || status =="publish" {
+			news,err := nh.newsUseCase.GetAllNewsByFilter(status)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError,err)
+			}
+			return c.JSON(http.StatusOK,news)
+		}
+		limit :=c.QueryParam("limit")
+		page := c.QueryParam("page")
+
+		if limit!=""&&page != "" {
+			limit,_ := strconv.Atoi(limit)
+			page,_:=strconv.Atoi(page)
+
+			if limit != 0 && page != 0 {
+				news,err :=nh.newsUseCase.GetAllNews()
+				if err != nil {
+					return fmt.Errorf("could not get All News %w",err)
+				}
+				return c.JSON(http.StatusOK,news)
+			}
+
+		}
+
+		news,err := nh.newsUseCase.GetAllNews()
 		if err != nil {
-			return c.String(http.StatusBadRequest,err.Error())
+			return fmt.Errorf("could not get All News %w",err)
 		}
 		return c.JSON(http.StatusOK,news)
 	}
 }
 
-// NewsCreate POST /news
-func (nh *NewsHandler) NewsCreate() echo.HandlerFunc {
+// CreateNews NewsCreate POST /news
+func (nh *NewsHandler) CreateNews() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var news domain.News
+		if err:=c.Bind(&news);err!=nil{
+			return fmt.Errorf("failed in bind News : %w",err)
+		}
+		err := nh.newsUseCase.AddNews(&news)
+		return c.JSON(http.StatusOK,err)
+	}
 
 }
 
 // Update PUT /news/:id
 func (nh *NewsHandler) Update() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var news domain.News
+		if err := c.Bind(&news); err != nil {
+			return c.JSON(http.StatusNotFound,err)
+		}
+		newsID,err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			return c.JSON(http.StatusNotFound,err)
+		}
 
+		err = nh.newsUseCase.UpdateNews(&news,newsID)
+
+		return c.JSON(http.StatusOK,err)
+	}
 }
 
 // Remove DELETE /news/:id
