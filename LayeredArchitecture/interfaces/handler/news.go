@@ -101,5 +101,15 @@ func (nh *NewsHandler) Update() echo.HandlerFunc {
 
 // Remove DELETE /news/:id
 func (nh *NewsHandler) Remove() echo.HandlerFunc {
-
+	return func(c echo.Context) error {
+		newsID,err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			return fmt.Errorf("failed in changing integer:%w",err)
+		}
+		err = nh.newsUseCase.RemoveNews(newsID)
+		if err != nil {
+			return fmt.Errorf("failed in Removing news :%w",err)
+		}
+		return c.JSON(http.StatusOK,nil)
+	}
 }
