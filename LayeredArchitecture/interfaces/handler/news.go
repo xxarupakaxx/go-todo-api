@@ -32,7 +32,8 @@ func (nh *NewsHandler) GetNews() echo.HandlerFunc {
 		return c.JSON(http.StatusOK,models)
 	}
 }
-//GetAll GET /news
+
+// GetAllNews GetAll GET /news
 func (nh *NewsHandler) GetAllNews() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		status := c.QueryParam("status")
