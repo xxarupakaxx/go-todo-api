@@ -3,6 +3,8 @@ package interfaces
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/config"
+	"net/http"
 )
 
 func InitRouting(topicHandler TopicHandler, newsHandler NewsHandler) {
@@ -29,6 +31,15 @@ func InitRouting(topicHandler TopicHandler, newsHandler NewsHandler) {
 			apiTopic.DELETE("/:id", topicHandler.RemoveTopic)
 			apiTopic.PUT("/:id", topicHandler.UpdateTopic)
 		}
+
+		api.GET("/migrate", func(c echo.Context) error {
+			_,err :=config.DBMigrate()
+			if err != nil {
+				return c.JSON(http.StatusNotFound,err)
+			}
+			msg :="Success Migrate"
+			return c.JSON(http.StatusOK,msg)
+		})
 	}
 
 }
