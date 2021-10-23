@@ -1,4 +1,5 @@
 package usecase
+
 // validateとかpasswordのhash化とかをここでやる
 import (
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain"
@@ -10,19 +11,19 @@ type newsUseCase struct {
 }
 
 func (n *newsUseCase) GetNews(id int) (*domain.News, error) {
-	news,err := n.newsRepository.Get(id)
+	news, err := n.newsRepository.Get(id)
 	if err != nil {
 		return nil, err
 	}
-	return news,nil
+	return news, nil
 }
 
 func (n *newsUseCase) GetAllNews() ([]*domain.News, error) {
-	news,err := n.newsRepository.GetAll()
+	news, err := n.newsRepository.GetAll()
 	if err != nil {
 		return nil, err
 	}
-	return news,nil
+	return news, nil
 }
 
 func (n *newsUseCase) AddNews(news *domain.News) error {
@@ -33,11 +34,11 @@ func (n *newsUseCase) AddNews(news *domain.News) error {
 }
 
 func (n *newsUseCase) GetAllNewsByFilter(status string) ([]*domain.News, error) {
-	news,err := n.newsRepository.GetAllByStatus(status)
+	news, err := n.newsRepository.GetAllByStatus(status)
 	if err != nil {
 		return nil, err
 	}
-	return news,err
+	return news, err
 }
 
 func (n *newsUseCase) RemoveNews(id int) error {
@@ -47,8 +48,8 @@ func (n *newsUseCase) RemoveNews(id int) error {
 	return nil
 }
 
-func (n *newsUseCase) UpdateNews(news *domain.News,id int) error {
-	if err:=n.newsRepository.Update(news);err != nil {
+func (n *newsUseCase) UpdateNews(news *domain.News, id int) error {
+	if err := n.newsRepository.Update(news); err != nil {
 		return err
 	}
 	news.ID = (uint)(id)
@@ -56,24 +57,23 @@ func (n *newsUseCase) UpdateNews(news *domain.News,id int) error {
 }
 
 func (n *newsUseCase) GetNewsByTopic(slug string) ([]*domain.News, error) {
-	news,err := n.newsRepository.GetBySlug(slug)
+	news, err := n.newsRepository.GetBySlug(slug)
 	if err != nil {
 		return nil, err
 	}
-	return news,err
+	return news, err
 }
 
 type NewsUseCase interface {
-	GetNews(id int) (*domain.News,error)
-	GetAllNews() ([]*domain.News,error)
-	AddNews(news *domain.News)error
+	GetNews(id int) (*domain.News, error)
+	GetAllNews() ([]*domain.News, error)
+	AddNews(news *domain.News) error
 	GetAllNewsByFilter(status string) ([]*domain.News, error)
 	RemoveNews(id int) error
-	UpdateNews(news *domain.News,id int) error
+	UpdateNews(news *domain.News, id int) error
 	GetNewsByTopic(slug string) ([]*domain.News, error)
 }
 
 func newNewsUseCase(newsRepository repository.NewsRepository) NewsUseCase {
 	return &newsUseCase{newsRepository: newsRepository}
 }
-

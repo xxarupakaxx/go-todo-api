@@ -8,11 +8,11 @@ import (
 )
 
 type ConfigDB struct {
-	User string
+	User     string
 	Password string
-	Host string
-	Port string
-	Dbname string
+	Host     string
+	Port     string
+	Dbname   string
 }
 
 func (c *ConfigDB) Read() {
@@ -21,16 +21,16 @@ func (c *ConfigDB) Read() {
 	}
 }
 
-var config  = ConfigDB{}
+var config = ConfigDB{}
 
-func ConnectDB() (*gorm.DB,error) {
+func ConnectDB() (*gorm.DB, error) {
 	config.Read()
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", config.User, config.Password, config.Host, config.Port, config.Dbname)
 
-	db,err := gorm.Open("mysql",dsn)
+	db, err := gorm.Open("mysql", dsn)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-	return db,err
+	return db, err
 }

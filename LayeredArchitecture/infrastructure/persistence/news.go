@@ -13,18 +13,18 @@ type NewsRepositoryImpl struct {
 
 func (r *NewsRepositoryImpl) Get(id int) (*domain.News, error) {
 	news := &domain.News{}
-	if err := r.Conn.Preload("Topic").First(&news,id).Error;err !=nil{
+	if err := r.Conn.Preload("Topic").First(&news, id).Error; err != nil {
 		return nil, err
 	}
-	return news,nil
+	return news, nil
 }
 
 func (r *NewsRepositoryImpl) GetAll() ([]*domain.News, error) {
-	news :=[]*domain.News{}
+	news := []*domain.News{}
 	if err := r.Conn.Preload("Topic").Find(&news).Error; err != nil {
 		return nil, err
 	}
-	return news,nil
+	return news, nil
 }
 
 func (r *NewsRepositoryImpl) GetBySlug(slug string) ([]*domain.News, error) {
@@ -32,12 +32,12 @@ func (r *NewsRepositoryImpl) GetBySlug(slug string) ([]*domain.News, error) {
 	defer rows.Close()
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil,nil
+			return nil, nil
 		}
 		return nil, err
 	}
 
-	us := make([]*domain.News,0)
+	us := make([]*domain.News, 0)
 
 	for rows.Next() {
 		u := &domain.News{}
@@ -48,7 +48,7 @@ func (r *NewsRepositoryImpl) GetBySlug(slug string) ([]*domain.News, error) {
 		}
 		us = append(us, u)
 	}
-	return us,nil
+	return us, nil
 }
 
 func (r *NewsRepositoryImpl) GetAllByStatus(status string) ([]*domain.News, error) {
@@ -107,13 +107,13 @@ func (r *NewsRepositoryImpl) Remove(id int) error {
 }
 
 func (r *NewsRepositoryImpl) Update(news *domain.News) error {
-	if err:=r.Conn.Model(&news).UpdateColumns(domain.News{
+	if err := r.Conn.Model(&news).UpdateColumns(domain.News{
 		Title:   news.Title,
 		Slug:    news.Slug,
 		Content: news.Content,
 		Status:  news.Status,
 		Topic:   news.Topic,
-	}).Error;err !=nil{
+	}).Error; err != nil {
 		return err
 	}
 	return nil

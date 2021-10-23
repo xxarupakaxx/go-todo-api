@@ -1,4 +1,5 @@
 package usecase
+
 // validateとかpasswordのhash化とかをここでやる
 import (
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain"
@@ -11,23 +12,23 @@ type topicUseCase struct {
 
 func (t *topicUseCase) GetTopic(id int) (*domain.Topic, error) {
 
-	topic,err := t.topicRepository.Get(id)
-	if err != nil {
-		return nil,err
-	}
-	return topic,err
-}
-
-func (t *topicUseCase) GetAllTopic() ([]*domain.Topic, error) {
-	topics,err:= t.topicRepository.GetAll()
+	topic, err := t.topicRepository.Get(id)
 	if err != nil {
 		return nil, err
 	}
-	return topics,err
+	return topic, err
+}
+
+func (t *topicUseCase) GetAllTopic() ([]*domain.Topic, error) {
+	topics, err := t.topicRepository.GetAll()
+	if err != nil {
+		return nil, err
+	}
+	return topics, err
 }
 
 func (t *topicUseCase) AddTopic(name, slug string) error {
-	u:= domain.Topic{
+	u := domain.Topic{
 		Name: name,
 		Slug: slug,
 	}
@@ -35,7 +36,7 @@ func (t *topicUseCase) AddTopic(name, slug string) error {
 }
 
 func (t *topicUseCase) UpdateTopic(topic *domain.Topic, id int) error {
-	err:=t.topicRepository.Update(topic)
+	err := t.topicRepository.Update(topic)
 	if err != nil {
 		return err
 	}
@@ -58,10 +59,10 @@ func (t *topicUseCase) Update(topic *domain.Topic) error {
 }
 
 type TopicUseCase interface {
-	GetTopic(id int)(*domain.Topic,error)
-	GetAllTopic()([]*domain.Topic,error)
-	AddTopic(name,slug string) error
-	UpdateTopic(topic *domain.Topic,id int) error
+	GetTopic(id int) (*domain.Topic, error)
+	GetAllTopic() ([]*domain.Topic, error)
+	AddTopic(name, slug string) error
+	UpdateTopic(topic *domain.Topic, id int) error
 	Remove(id int) error
 	Update(topic *domain.Topic) error
 }

@@ -6,6 +6,6 @@ import (
 )
 
 type UserRepository interface {
-	Insert(DB *sql.DB,name,email string) error
-	GetByUserID(DB *sql.DB,userID string)  (*domain.User,error)
+	Insert(DB *sql.DB, name, email string) error
+	GetByUserID(DB *sql.DB, userID string) (*domain.User, error)
 }

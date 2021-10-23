@@ -1,4 +1,5 @@
 package usecase
+
 // validateとかpasswordのhash化とかをここでやる
 import (
 	"database/sql"
@@ -11,15 +12,15 @@ type userUseCase struct {
 }
 
 func (uu *userUseCase) GetByUserID(DB *sql.DB, userID string) (*domain.User, error) {
-	user,err := uu.userRepository.GetByUserID(DB,userID)
+	user, err := uu.userRepository.GetByUserID(DB, userID)
 	if err != nil {
 		return nil, err
 	}
-	return user,nil
+	return user, nil
 }
 
-func (uu *userUseCase) Insert(DB *sql.DB,  name, email string) error {
-	err := uu.userRepository.Insert(DB,name,email)
+func (uu *userUseCase) Insert(DB *sql.DB, name, email string) error {
+	err := uu.userRepository.Insert(DB, name, email)
 	if err != nil {
 		return err
 	}
@@ -31,7 +32,6 @@ func NewUserUserCase(ur repository.UserRepository) UserUseCase {
 }
 
 type UserUseCase interface {
-	GetByUserID(DB *sql.DB,userID string)(*domain.User,error)
-	Insert(DB *sql.DB,name,email string) error
+	GetByUserID(DB *sql.DB, userID string) (*domain.User, error)
+	Insert(DB *sql.DB, name, email string) error
 }
-

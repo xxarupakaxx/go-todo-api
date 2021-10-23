@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	e :=echo.New()
+	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK,"aaaaaaaaaaaaaaaa")
+		return c.String(http.StatusOK, "aaaaaaaaaaaaaaaa")
 	})
 	e.Start(":9000")
 }

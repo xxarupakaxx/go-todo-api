@@ -12,23 +12,23 @@ type TopicRepositoryImpl struct {
 
 func (t *TopicRepositoryImpl) Get(id int) (*domain.Topic, error) {
 	topic := &domain.Topic{}
-	if err:= t.Conn.Preload("News").First(&topic,id).Error;err!=nil{
+	if err := t.Conn.Preload("News").First(&topic, id).Error; err != nil {
 		return nil, err
 	}
-	return topic,nil
+	return topic, nil
 }
 
 func (t *TopicRepositoryImpl) GetAll() ([]*domain.Topic, error) {
 	topics := []*domain.Topic{}
-	if err:= t.Conn.Preload("News").Find(&topics).Error;err!=nil{
+	if err := t.Conn.Preload("News").Find(&topics).Error; err != nil {
 		return nil, err
 	}
 
-	return topics,nil
+	return topics, nil
 }
 
 func (t *TopicRepositoryImpl) Save(topic *domain.Topic) error {
-	if err := t.Conn.Save(&topic).Error;err!=nil{
+	if err := t.Conn.Save(&topic).Error; err != nil {
 		return err
 	}
 	return nil
@@ -36,7 +36,7 @@ func (t *TopicRepositoryImpl) Save(topic *domain.Topic) error {
 
 func (t *TopicRepositoryImpl) Remove(id int) error {
 	topic := &domain.Topic{}
-	if err:= t.Conn.First(&topic,id).Error;err!=nil{
+	if err := t.Conn.First(&topic, id).Error; err != nil {
 		return err
 	}
 
@@ -48,9 +48,9 @@ func (t *TopicRepositoryImpl) Remove(id int) error {
 
 func (t *TopicRepositoryImpl) Update(topic *domain.Topic) error {
 	if err := t.Conn.Model(&topic).UpdateColumns(domain.Topic{
-		Name:  topic.Name,
-		Slug:  topic.Slug,
-	}).Error;err!=nil{
+		Name: topic.Name,
+		Slug: topic.Slug,
+	}).Error; err != nil {
 		return err
 	}
 	return nil

@@ -42,7 +42,7 @@ func (handler *TodoHandler) Add() echo.HandlerFunc {
 		var todo model.Todo
 		err := c.Bind(&todo)
 		if err != nil {
-			return c.JSON(http.StatusBadRequest,err)
+			return c.JSON(http.StatusBadRequest, err)
 		}
 		err = handler.todoUsecase.Add(&todo)
 		return c.JSON(http.StatusCreated, err)

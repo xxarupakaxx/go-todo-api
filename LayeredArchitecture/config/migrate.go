@@ -7,10 +7,10 @@ import (
 )
 
 func DBMigrate() (*gorm.DB, error) {
-	conn,err := ConnectDB()
+	conn, err := ConnectDB()
 	if err != nil {
 		return nil, err
-		}
+	}
 	defer func(conn *gorm.DB) {
 		err := conn.Close()
 		if err != nil {
@@ -18,8 +18,8 @@ func DBMigrate() (*gorm.DB, error) {
 		}
 	}(conn)
 
-	conn.AutoMigrate(domain.News{},domain.Topic{})
+	conn.AutoMigrate(domain.News{}, domain.Topic{})
 	log.Println("Migration has been processed")
 
-	return conn,err
+	return conn, err
 }
