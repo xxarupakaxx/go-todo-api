@@ -18,19 +18,16 @@ func newTopicHandler(topicUseCase usecase.TopicUseCase) *TopicHandler {
 }
 
 // GetAllTopic GET /topic
-func (th *TopicHandler) GetAllTopic() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (th *TopicHandler) GetAllTopic(c echo.Context) error {
 		topics,err :=th.topicUseCase.GetAllTopic()
 		if err != nil {
 			return fmt.Errorf("failed in Getting Alltopic:%w",err)
 		}
 		return c.JSON(http.StatusOK,topics)
-	}
 }
 
 // GetTopic GET topic/:id
-func (th *TopicHandler) GetTopic() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (th *TopicHandler) GetTopic(c echo.Context) error {
 		topicID,err :=strconv.Atoi(c.Param("id"))
 		if err != nil {
 			return fmt.Errorf("failed in chaging int :%w",err)
@@ -40,12 +37,10 @@ func (th *TopicHandler) GetTopic() echo.HandlerFunc {
 			return fmt.Errorf("failed in getting Topics:%w",err)
 		}
 		return c.JSON(http.StatusOK,topic)
-	}
 }
 
 // CreateTopic POST /topic/
-func (th *TopicHandler) CreateTopic() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (th *TopicHandler) CreateTopic(c echo.Context) error {
 		type payload struct {
 			Name string `json:"name"`
 			Slug string `json:"slug"`
@@ -59,12 +54,10 @@ func (th *TopicHandler) CreateTopic() echo.HandlerFunc {
 			return fmt.Errorf("failed in AddTopic :%w",err)
 		}
 		return c.JSON(http.StatusCreated,nil)
-	}
 }
 
 // UpdateTopic PUT /topic/id
-func (th *TopicHandler) UpdateTopic() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (th *TopicHandler) UpdateTopic(c echo.Context) error{
 		var topic domain.Topic
 		if err := c.Bind(&topic); err != nil {
 			return c.JSON(http.StatusNotFound,err)
@@ -78,12 +71,10 @@ func (th *TopicHandler) UpdateTopic() echo.HandlerFunc {
 			return c.JSON(http.StatusNotFound,err)
 		}
 		return c.JSON(http.StatusOK,nil)
-	}
 }
 
 // RemoveTopic DELETE /topic/:id
-func (th *TopicHandler) RemoveTopic() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (th *TopicHandler) RemoveTopic(c echo.Context) error{
 		topicID,err := strconv.Atoi("id" )
 		if err != nil {
 			return c.JSON(http.StatusNotFound,err)
@@ -94,5 +85,3 @@ func (th *TopicHandler) RemoveTopic() echo.HandlerFunc {
 		}
 		return c.JSON(http.StatusOK,nil)
 	}
-
-}

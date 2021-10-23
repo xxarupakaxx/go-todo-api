@@ -18,8 +18,7 @@ func newNewsHandler(newsUseCase usecase.NewsUseCase) *NewsHandler {
 }
 
 // GetNews Get GET /news/:id
-func (nh *NewsHandler) GetNews() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (nh *NewsHandler) GetNews(c echo.Context) error {
 		id := c.Param("id")
 		intID ,err := strconv.Atoi(id)
 		if err != nil {
@@ -31,11 +30,9 @@ func (nh *NewsHandler) GetNews() echo.HandlerFunc {
 		}
 		return c.JSON(http.StatusOK,models)
 	}
-}
 
 // GetAllNews GetAll GET /news
-func (nh *NewsHandler) GetAllNews() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (nh *NewsHandler) GetAllNews(c echo.Context) error {
 		status := c.QueryParam("status")
 		if status =="draft" || status == "deleted" || status =="publish" {
 			news,err := nh.newsUseCase.GetAllNewsByFilter(status)
@@ -67,11 +64,10 @@ func (nh *NewsHandler) GetAllNews() echo.HandlerFunc {
 		}
 		return c.JSON(http.StatusOK,news)
 	}
-}
 
 // CreateNews NewsCreate POST /news
-func (nh *NewsHandler) CreateNews() echo.HandlerFunc {
-	return func(c echo.Context) error {
+func (nh *NewsHandler) CreateNews(c echo.Context) error {
+
 		var news domain.News
 		if err:=c.Bind(&news);err!=nil{
 			return fmt.Errorf("failed in bind News : %w",err)
@@ -80,11 +76,8 @@ func (nh *NewsHandler) CreateNews() echo.HandlerFunc {
 		return c.JSON(http.StatusOK,err)
 	}
 
-}
-
-// Update PUT /news/:id
-func (nh *NewsHandler) Update() echo.HandlerFunc {
-	return func(c echo.Context) error {
+// UpdateNews Update PUT /news/:id
+func (nh *NewsHandler) UpdateNews(c echo.Context) error{
 		var news domain.News
 		if err := c.Bind(&news); err != nil {
 			return c.JSON(http.StatusNotFound,err)
@@ -98,11 +91,9 @@ func (nh *NewsHandler) Update() echo.HandlerFunc {
 
 		return c.JSON(http.StatusOK,err)
 	}
-}
 
-// Remove DELETE /news/:id
-func (nh *NewsHandler) Remove() echo.HandlerFunc {
-	return func(c echo.Context) error {
+// RemoveNews Remove DELETE /news/:id
+func (nh *NewsHandler) RemoveNews(c echo.Context) error {
 		newsID,err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			return fmt.Errorf("failed in changing integer:%w",err)
@@ -113,4 +104,3 @@ func (nh *NewsHandler) Remove() echo.HandlerFunc {
 		}
 		return c.JSON(http.StatusOK,nil)
 	}
-}
