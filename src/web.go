@@ -1,13 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"github.com/labstack/echo/v4"
-	"github.com/xxarupakaxx/go-todo-api/src/handler"
-	"github.com/xxarupakaxx/go-todo-api/src/injector"
-)
-
-func main() {
+/*func main() {
 	fmt.Println("server start ...")
 	todoHandler := injector.InjectTodoHandler()
 	e := echo.New()
@@ -15,3 +8,4 @@ func main() {
 	e.Logger.Debug()
 	e.Logger.Fatal(e.Start(":1449"))
 }
+*/
