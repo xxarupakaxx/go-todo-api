@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func InitRouting(topicHandler TopicHandler, newsHandler NewsHandler) {
+func InitRouting(topicHandler *TopicHandler, newsHandler *NewsHandler) {
 	e := echo.New()
 	e.Use(middleware.Logger())
 
@@ -41,5 +41,8 @@ func InitRouting(topicHandler TopicHandler, newsHandler NewsHandler) {
 			return c.JSON(http.StatusOK,msg)
 		})
 	}
+
+	e.Use(middleware.Logger())
+	e.Logger.Fatal(e.Start(":1111"))
 
 }
