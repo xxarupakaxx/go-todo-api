@@ -10,7 +10,9 @@ import (
 func InitRouting(topicHandler *TopicHandler, newsHandler *NewsHandler) {
 	e := echo.New()
 	e.Use(middleware.Logger())
-
+	e.GET("", func(c echo.Context) error {
+		return c.String(http.StatusOK,"hello")
+	})
 	api := e.Group("/api")
 	{
 		apiNews := api.Group("/news")
