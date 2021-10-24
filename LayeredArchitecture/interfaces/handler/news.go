@@ -13,7 +13,7 @@ type NewsHandler struct {
 	newsUseCase usecase.NewsUseCase
 }
 
-func newNewsHandler(newsUseCase usecase.NewsUseCase) *NewsHandler {
+func NewNewsHandler(newsUseCase usecase.NewsUseCase) *NewsHandler {
 	return &NewsHandler{newsUseCase: newsUseCase}
 }
 
@@ -104,3 +104,4 @@ func (nh *NewsHandler) RemoveNews(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, nil)
 }
+

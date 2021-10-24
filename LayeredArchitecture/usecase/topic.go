@@ -10,6 +10,10 @@ type topicUseCase struct {
 	topicRepository repository.TopicRepository
 }
 
+func NewTopicUseCase(topicRepository repository.TopicRepository) *topicUseCase {
+	return &topicUseCase{topicRepository: topicRepository}
+}
+
 func (t *topicUseCase) GetTopic(id int) (*domain.Topic, error) {
 
 	topic, err := t.topicRepository.Get(id)

@@ -74,6 +74,6 @@ type NewsUseCase interface {
 	GetNewsByTopic(slug string) ([]*domain.News, error)
 }
 
-func newNewsUseCase(newsRepository repository.NewsRepository) NewsUseCase {
+func NewNewsUseCase(newsRepository repository.NewsRepository) NewsUseCase {
 	return &newsUseCase{newsRepository: newsRepository}
 }

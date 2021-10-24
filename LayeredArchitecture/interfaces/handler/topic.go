@@ -13,7 +13,7 @@ type TopicHandler struct {
 	topicUseCase usecase.TopicUseCase
 }
 
-func newTopicHandler(topicUseCase usecase.TopicUseCase) *TopicHandler {
+func NewTopicHandler(topicUseCase usecase.TopicUseCase) *TopicHandler {
 	return &TopicHandler{topicUseCase: topicUseCase}
 }
 
