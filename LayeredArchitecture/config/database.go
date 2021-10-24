@@ -5,18 +5,25 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/jinzhu/gorm"
 	"log"
+	"os"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type ConfigDB struct {
-	User     string
-	Password string
-	Host     string
-	Port     string
-	Dbname   string
+	User     string `toml:"user"`
+	Password string `toml:"password"`
+	Host     string `toml:"host"`
+	Port     string `toml:"port"`
+	Dbname   string `toml:"dbname"`
 }
 
 func (c *ConfigDB) Read() {
-	if _, err := toml.DecodeFile("config.toml", &c); err != nil {
+	f,err := os.Open("config.toml")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	if _, err := toml.NewDecoder(f).Decode(&c); err != nil {
 		log.Fatalln(err)
 	}
 }
