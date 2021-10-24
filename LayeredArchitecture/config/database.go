@@ -3,10 +3,10 @@ package config
 import (
 	"fmt"
 	"github.com/BurntSushi/toml"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"log"
 	"os"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 type ConfigDB struct {

@@ -1,10 +1,10 @@
 package config
 
 import (
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/xxarupakaxx/go-todo-api/LayeredArchitecture/domain"
 	"log"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func DBMigrate() (*gorm.DB, error) {
