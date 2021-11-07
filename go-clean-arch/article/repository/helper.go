@@ -8,15 +8,15 @@ import (
 const timeFormat = "2006-01-02T15:04:05.999Z07:00"
 
 func DecodeCursor(encodedTime string) (time.Time, error) {
-	byt,err := base64.StdEncoding.DecodeString(encodedTime)
+	byt, err := base64.StdEncoding.DecodeString(encodedTime)
 	if err != nil {
 		return time.Time{}, err
 	}
 
 	timeString := string(byt)
-	t,err := time.Parse(timeFormat,timeString)
+	t, err := time.Parse(timeFormat, timeString)
 
-	return t,err
+	return t, err
 }
 
 func EncodeCursor(t time.Time) string {
