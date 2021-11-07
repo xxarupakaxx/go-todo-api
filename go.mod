@@ -19,6 +19,7 @@ require (
 	github.com/naoina/go-stringutil v0.1.0 // indirect
 	github.com/naoina/toml v0.1.1 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
+	github.com/spf13/viper v1.9.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	goji.io v2.0.2+incompatible // indirect
 )
