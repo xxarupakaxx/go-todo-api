@@ -36,18 +36,18 @@ func main() {
 	dbPass := viper.GetString(`database.pass`)
 	dbName := viper.GetString(`database.name`)
 
-	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",dbUser,dbPass,dbHost,dbPort,dbPort,dbName)
+	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbPort, dbName)
 	val := url.Values{}
-	val.Add("parseTime","1")
-	val.Add("loc","Asia/Tokyo")
-	dsn := fmt.Sprintf("%s?%s",connection,val.Encode())
-	dbConn,err := sql.Open(`mysql`,dsn)
+	val.Add("parseTime", "1")
+	val.Add("loc", "Asia/Tokyo")
+	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
+	dbConn, err := sql.Open(`mysql`, dsn)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	if err = dbConn.Ping();err!=nil{
+	if err = dbConn.Ping(); err != nil {
 		log.Fatalln(err)
-	}else{
+	} else {
 		log.Println("Success")
 	}
 
@@ -65,9 +65,9 @@ func main() {
 	authorRepo := _authorRepo.NewMysqlAuthorRepository(dbConn)
 	a := _articleRepo.NewMysqlArticleRepository(dbConn)
 
-	timeoutContext := time.Duration(viper.GetInt64("context.timeout")) *time.Second
-	au := _articleUcase.NewArticleUsecase(a,authorRepo,timeoutContext)
-	_articleHttpDelivery.NewArticleHandler(e,au)
+	timeoutContext := time.Duration(viper.GetInt64("context.timeout")) * time.Second
+	au := _articleUcase.NewArticleUsecase(a, authorRepo, timeoutContext)
+	_articleHttpDelivery.NewArticleHandler(e, au)
 
 	log.Fatal(e.Start(viper.GetString("server.address")))
 }
