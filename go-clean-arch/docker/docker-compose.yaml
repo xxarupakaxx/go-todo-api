@@ -11,12 +11,12 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - "../../:/go/src/github.com/go-todo-api/go-clean-arch"
+      - "../../:/go/src/github.com/xxarupakaxx/go-todo-api/go-clean-arch"
 
   mysql:
     image: mysql:latest
     container_name: go_clean_arch_mysql
-    command: mysqld --user==root
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ../../:/go/src/github.com/go-todo-api/db/article.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
