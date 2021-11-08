@@ -1,12 +1,12 @@
-package mysql
+package mysql_test
 
 import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/xxarupakaxx/go-todo-api/go-clean-arch/article/repository"
-	articleMysqlRepo "github.com/xxarupakaxx/go-todo-api/go-clean-arch/article/repository/mysql"
+	articleMysqlRepo"github.com/xxarupakaxx/go-todo-api/go-clean-arch/article/repository/mysql"
 	"github.com/xxarupakaxx/go-todo-api/go-clean-arch/domain"
-	"gopkg.in/DATA-DOG/go-sqlmock.v1"
+	sqlmock "gopkg.in/DATA-DOG/go-sqlmock.v1"
 	"testing"
 	"time"
 )
