@@ -32,7 +32,7 @@ func TestFetch(t *testing.T) {
 		num := int64(1)
 		cursor := "12"
 		list, nextCursor, err := u.Fetch(context.TODO(), cursor, num)
-		cursorExpected := "next-cursro"
+		cursorExpected := "next-cursor"
 		assert.Equal(t, cursorExpected, nextCursor)
 		assert.NotEmpty(t, nextCursor)
 		assert.NoError(t, err)
