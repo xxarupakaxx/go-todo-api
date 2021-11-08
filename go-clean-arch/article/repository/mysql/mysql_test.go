@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/xxarupakaxx/go-todo-api/go-clean-arch/article/repository"
-	articleMysqlRepo"github.com/xxarupakaxx/go-todo-api/go-clean-arch/article/repository/mysql"
+	articleMysqlRepo "github.com/xxarupakaxx/go-todo-api/go-clean-arch/article/repository/mysql"
 	"github.com/xxarupakaxx/go-todo-api/go-clean-arch/domain"
 	sqlmock "gopkg.in/DATA-DOG/go-sqlmock.v1"
 	"testing"
@@ -119,7 +119,7 @@ func TestGetByTitle(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	db,mock,err :=sqlmock.New()
+	db, mock, err := sqlmock.New()
 	if err != nil {
 		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
@@ -127,12 +127,12 @@ func TestDelete(t *testing.T) {
 	query := "DELETE FROM article WHERE id =\\?"
 
 	prep := mock.ExpectPrepare(query)
-	prep.ExpectExec().WithArgs(12).WillReturnResult(sqlmock.NewResult(12,1))
+	prep.ExpectExec().WithArgs(12).WillReturnResult(sqlmock.NewResult(12, 1))
 
 	a := articleMysqlRepo.NewMysqlArticleRepository(db)
 
 	num := int64(12)
-	err = a.Delete(context.TODO(),num)
+	err = a.Delete(context.TODO(), num)
 	assert.NoError(t, err)
 }
 
@@ -147,7 +147,7 @@ func TestUpdate(t *testing.T) {
 		CreatedAt: now,
 	}
 
-	db,mock,err := sqlmock.New()
+	db, mock, err := sqlmock.New()
 	if err != nil {
 		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
@@ -155,11 +155,11 @@ func TestUpdate(t *testing.T) {
 	query := "UPDATE article set title=\\?,content=\\?,author_id=\\?,updated_at=\\? WHERE ID = \\?"
 
 	prep := mock.ExpectPrepare(query)
-	prep.ExpectExec().WithArgs(ar.Title,ar.Content,ar.Author.ID,ar.UpdatedAt,ar.ID).
-		WillReturnResult(sqlmock.NewResult(12,1))
+	prep.ExpectExec().WithArgs(ar.Title, ar.Content, ar.Author.ID, ar.UpdatedAt, ar.ID).
+		WillReturnResult(sqlmock.NewResult(12, 1))
 
 	a := articleMysqlRepo.NewMysqlArticleRepository(db)
 
-	err = a.Update(context.TODO(),ar)
+	err = a.Update(context.TODO(), ar)
 	assert.NoError(t, err)
 }
