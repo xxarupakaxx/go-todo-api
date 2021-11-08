@@ -23,4 +23,5 @@ require (
 	github.com/stretchr/testify v1.7.0 // indirect
 	goji.io v2.0.2+incompatible // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 )
